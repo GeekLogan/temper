@@ -47,7 +47,7 @@ const static char uCmd3[] = { 0x52,    0,    0,    0,    0,    0,    0,    0 };
 const static char uCmd4[] = { 0x54,    0,    0,    0,    0,    0,    0,    0 };
 
 const static int reqIntLen=8;
-const static int reqBulkLen=8;
+//const static int reqBulkLen=8;
 const static int timeout=5000; /* timeout in ms */
  
 static int debug=0;

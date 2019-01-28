@@ -4,7 +4,6 @@
  */
 
 #include <stdio.h>
-#include <time.h>
 #include "pcsensor.h"
 
 /* Calibration adjustments */
@@ -21,14 +20,13 @@ int main(){
 		if (!lvr_winusb) {
 			/* Open fails sometime, sleep and try again */
 			sleep(3);
-		}
-		else {
-	
+		} else {
 			tempc = pcsensor_get_temperature(lvr_winusb);
 			pcsensor_close(lvr_winusb);
 		}
 		++passes;
 	}
+
 	/* Read fails silently with a 0.0 return, so repeat until not zero
 	   or until we have read the same zero value 3 times (just in case
 	   temp is really dead on zero */
@@ -38,20 +36,11 @@ int main(){
 		/* Apply calibrations */
 		tempc = (tempc * scale) + offset;
 
-		struct tm *utc;
-		time_t t;
-		t = time(NULL);
-		utc = gmtime(&t);
-		
-		char dt[80];
-		strftime(dt, 80, "%d-%b-%Y %H:%M", utc);
-
-		printf("%s,%f\n", dt, tempc);
+		printf("%f\n", tempc);
 		fflush(stdout);
 
 		return 0;
-	}
-	else {
+	} else {
 		return 1;
 	}
 
